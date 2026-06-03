@@ -19,12 +19,14 @@ export class App implements OnInit {
     this.loadTodos();
   }
 
+  // Load all todos from backend
   loadTodos() {
     this._todoService.getTodos().subscribe(todos => {
       this.todos.set(todos);
     });
   }
 
+  // Add new todo and reload list
   addTodo() {
     if (this.titleControl.invalid) return;
     this._todoService.addTodo(this.titleControl.value!).subscribe(() => {
@@ -33,6 +35,7 @@ export class App implements OnInit {
     });
   }
 
+  // Delete todo by ID and reload list
   deleteTodo(id: number) {
     this._todoService.deleteTodo(id).subscribe(() => {
       this.loadTodos();

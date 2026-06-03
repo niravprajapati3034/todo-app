@@ -5,7 +5,8 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular", policy =>
     {
-        policy.WithOrigins("http://localhost:4200")
+        var allowedOrigins = builder.Configuration["AllowedOrigins"] ?? "http://localhost:4200";
+        policy.WithOrigins(allowedOrigins)
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -27,10 +28,13 @@ var nextId = 1;
 // Get all todos
 app.MapGet("/api/todos", () => todos);
 
-// Add todo
+// Add todo with validation
 app.MapPost("/api/todos", (TodoRequest request) =>
 {
-    var todo = new Todo(nextId++, request.Title, false);
+    if (string.IsNullOrWhiteSpace(request.Title))
+        return Results.BadRequest("Title cannot be empty");
+
+    var todo = new Todo(nextId++, request.Title.Trim(), false);
     todos.Add(todo);
     return Results.Created($"/api/todos/{todo.Id}", todo);
 });
