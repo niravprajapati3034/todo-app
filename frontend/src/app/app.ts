@@ -38,6 +38,7 @@ export class App implements OnInit {
   // Delete todo by ID and reload list
   deleteTodo(id: number) {
     this._todoService.deleteTodo(id).subscribe(() => {
+      this.titleControl.reset();
       this.loadTodos();
     });
   }

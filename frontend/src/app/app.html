@@ -6,7 +6,7 @@
     <button (click)="addTodo()" [disabled]="titleControl.invalid">Add</button>
   </div>
 
-  @if (titleControl.dirty && titleControl.touched && titleControl.invalid) {
+  @if (titleControl.touched && titleControl.dirty && titleControl.invalid) {
   <p class="error">Please enter a valid todo!</p>
   }
 
