@@ -3,8 +3,8 @@
 A full-stack Todo List application built with Angular 21 (frontend) and .NET 9 Web API (backend).
 
 ## Tech Stack
-- **Frontend:** Angular 21, TypeScript, Reactive Forms
-- **Backend:** .NET 9 Minimal API, C#
+- **Frontend:** Angular 21, TypeScript, Reactive Forms, Angular Signals
+- **Backend:** .NET 9 Web API, C#
 - **Architecture:** REST API with in-memory data storage
 
 ## Prerequisites
@@ -31,3 +31,15 @@ Frontend will start on: http://localhost:4200
 - View all todos
 - Add new todo with validation
 - Delete todo
+
+## Architecture
+- **todo-form** — Add todo form with validation
+- **todo-list** — Display and delete todos
+- **TodoService** — Shared signal state management
+
+## Frontend Validation
+- Title: required, min 3, max 100 characters
+- Description: required, min 5, max 200 characters
+- Category: required (Personal / Teams)
+- Date: required, past date not allowed
+- Time: required

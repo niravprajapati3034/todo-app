@@ -1,5 +1,8 @@
 export interface TodoModel {
     id: number;
     title: string;
-    isCompleted: boolean;
+    description: string;
+    category: string;
+    date: string;
+    time: string;
 }

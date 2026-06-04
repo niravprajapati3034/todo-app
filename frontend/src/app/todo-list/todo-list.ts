@@ -21,4 +21,14 @@ export class TodoList {
   deleteTodo(id: number) {
     this._todoService.deleteTodo(id);
   }
+
+  // Format time to 12 hour format
+  formatTime(time: string): string {
+    if (!time) return '';
+    const [hours, minutes] = time.split(':');
+    const h = parseInt(hours);
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    const hour12 = h % 12 || 12;
+    return `${hour12}:${minutes} ${ampm}`;
+  }
 }

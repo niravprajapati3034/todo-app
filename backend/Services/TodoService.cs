@@ -11,7 +11,14 @@ public class TodoService : ITodoService
 
     public Todo Add(TodoRequest request)
     {
-        var todo = new Todo(_nextId++, request.Title.Trim(), false);
+        var todo = new Todo(
+            _nextId++,
+            request.Title.Trim(),
+            request.Description,
+            request.Category,
+            request.Date,
+            request.Time
+        );
         _todos.Add(todo);
         return todo;
     }

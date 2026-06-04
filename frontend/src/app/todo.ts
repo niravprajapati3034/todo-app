@@ -25,8 +25,14 @@ export class Todo {
   }
 
   // Add new todo
-  addTodo(title: string) {
-    this.http.post<TodoModel>(this.apiUrl, { title }).subscribe(() => {
+  // addTodo(title: string) {
+  //   this.http.post<TodoModel>(this.apiUrl, { title }).subscribe(() => {
+  //     this.loadTodos();
+  //   });
+  // }
+
+  addTodo(title: string, description?: string, category?: string, date?: string, time?: string) {
+    this.http.post<TodoModel>(this.apiUrl, { title, description, category, date, time }).subscribe(() => {
       this.loadTodos();
     });
   }
