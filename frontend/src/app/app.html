@@ -1,25 +1,5 @@
 <div class="container">
   <h1>Todo List</h1>
-
-  <div class="add-todo">
-    <input [formControl]="titleControl" placeholder="Enter todo..." (keyup.enter)="addTodo()" />
-    <button (click)="addTodo()" [disabled]="titleControl.invalid">Add</button>
-  </div>
-
-  @if (titleControl.touched && titleControl.dirty && titleControl.invalid) {
-  <p class="error">Please enter a valid todo!</p>
-  }
-
-  <ul>
-    @for (todo of todos(); track todo.id) {
-    <li>
-      <span>{{ todo.title }}</span>
-      <button (click)="deleteTodo(todo.id)">Delete</button>
-    </li>
-    }
-  </ul>
-
-  @if (todos().length === 0) {
-  <p class="empty">No todos yet. Add one above!</p>
-  }
+  <app-todo-form />
+  <app-todo-list />
 </div>

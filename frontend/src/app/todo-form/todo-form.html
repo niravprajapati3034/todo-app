@@ -1,0 +1,20 @@
+<div class="form-container">
+    <h2>New Task ToDo</h2>
+
+    <div class="field">
+        <label>Title Task</label>
+        <input [formControl]="titleControl" placeholder="Add Task Name..." maxlength="100" />
+        @if (titleControl.dirty && titleControl.touched) {
+        @if (titleControl.hasError('required')) {
+        <p class="error">Title is required</p>
+        } @else if (titleControl.hasError('minlength')) {
+        <p class="error">Title must be at least 3 characters</p>
+        }
+        }
+    </div>
+
+    <div class="actions">
+        <button class="cancel-btn" type="button" (click)="titleControl.reset()">Cancel</button>
+        <button class="create-btn" type="button" (click)="submit()" [disabled]="titleControl.invalid">Create</button>
+    </div>
+</div>

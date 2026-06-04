@@ -1,0 +1,12 @@
+<ul>
+    @for (todo of todos(); track todo.id) {
+    <li>
+        <span>{{ todo.title }}</span>
+        <button (click)="deleteTodo(todo.id)">Delete</button>
+    </li>
+    }
+</ul>
+
+@if (todos().length === 0) {
+<p class="empty">No todos yet. Add one above!</p>
+}

@@ -1,30 +1,40 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
 import { TodoModel } from './todo.model';
 import { environment } from '../environments/environment';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class Todo {
-
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  // Shared todos signal - banne components use karse
+  todos = signal<TodoModel[]>([]);
 
-  // Get all todos from API
-  getTodos(): Observable<TodoModel[]> {
-    return this.http.get<TodoModel[]>(this.apiUrl);
+  constructor(private http: HttpClient) {
+    this.loadTodos();
   }
 
-  // Add new todo via API
-  addTodo(title: string): Observable<TodoModel> {
-    return this.http.post<TodoModel>(this.apiUrl, { title });
+  // Load all todos from backend
+  loadTodos() {
+    this.http.get<TodoModel[]>(this.apiUrl).subscribe({
+      next: (todos) => this.todos.set(todos),
+      error: (err) => console.error('Failed to load todos', err)
+    });
   }
 
-  // Delete todo by ID via API
-  deleteTodo(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  // Add new todo
+  addTodo(title: string) {
+    this.http.post<TodoModel>(this.apiUrl, { title }).subscribe(() => {
+      this.loadTodos();
+    });
+  }
+
+  // Delete todo by ID
+  deleteTodo(id: number) {
+    this.http.delete<void>(`${this.apiUrl}/${id}`).subscribe(() => {
+      this.loadTodos();
+    });
   }
 }
