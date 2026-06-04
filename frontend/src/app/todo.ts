@@ -4,12 +4,10 @@ import { TodoModel } from './todo.model';
 import { environment } from '../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class Todo {
   private apiUrl = environment.apiUrl;
-
-  // Shared todos signal - banne components use karse
   todos = signal<TodoModel[]>([]);
 
   constructor(private http: HttpClient) {
@@ -20,27 +18,17 @@ export class Todo {
   loadTodos() {
     this.http.get<TodoModel[]>(this.apiUrl).subscribe({
       next: (todos) => this.todos.set(todos),
-      error: (err) => console.error('Failed to load todos', err)
+      error: (err) => console.error('Failed to load todos', err),
     });
   }
 
   // Add new todo
-  // addTodo(title: string) {
-  //   this.http.post<TodoModel>(this.apiUrl, { title }).subscribe(() => {
-  //     this.loadTodos();
-  //   });
-  // }
-
   addTodo(title: string, description?: string, category?: string, date?: string, time?: string) {
-    this.http.post<TodoModel>(this.apiUrl, { title, description, category, date, time }).subscribe(() => {
-      this.loadTodos();
-    });
+    return this.http.post<TodoModel>(this.apiUrl, { title, description, category, date, time });
   }
 
   // Delete todo by ID
   deleteTodo(id: number) {
-    this.http.delete<void>(`${this.apiUrl}/${id}`).subscribe(() => {
-      this.loadTodos();
-    });
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

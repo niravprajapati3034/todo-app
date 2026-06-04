@@ -1,5 +1,6 @@
 .form-container {
-    margin-bottom: 20px;
+    max-width: 700px;
+    margin: 0 auto;
 }
 
 h2 {
@@ -20,13 +21,14 @@ label {
 }
 
 input,
-textarea,
-select {
+select,
+textarea {
     width: 100%;
-    padding: 8px;
+    padding: 12px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 6px;
     font-size: 14px;
+    box-sizing: border-box;
 }
 
 textarea {
@@ -36,11 +38,16 @@ textarea {
 
 .field-row {
     display: flex;
-    gap: 12px;
+    gap: 20px;
 }
 
 .field-row .field {
     flex: 1;
+}
+
+.field-row input {
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .error {
@@ -51,26 +58,15 @@ textarea {
 
 .actions {
     display: flex;
-    gap: 8px;
-    margin-top: 16px;
+    gap: 12px;
+    margin-top: 20px;
 }
 
-.cancel-btn {
-    padding: 8px 16px;
-    border: 1px solid #1976d2;
-    border-radius: 4px;
-    background: white;
-    color: #1976d2;
-    cursor: pointer;
-}
-
+.cancel-btn,
 .create-btn {
-    padding: 8px 16px;
-    background: #1976d2;
-    border: none;
-    border-radius: 4px;
-    color: white;
-    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 14px;
 }
 
 .create-btn:disabled {

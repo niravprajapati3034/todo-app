@@ -1,28 +1,28 @@
-<ul>
+@if (todos().length > 0) {
+  <ul>
     @for (todo of todos(); track todo.id) {
-    <li>
+      <li>
         <div class="todo-info">
-            <span class="title">{{ todo.title }}</span>
-            @if (todo.description) {
+          <span class="title">{{ todo.title }}</span>
+          @if (todo.description) {
             <span class="desc">{{ todo.description }}</span>
+          }
+          <div class="meta">
+            @if (todo.category) {
+              <span class="category">{{ todo.category }}</span>
             }
-            <div class="meta">
-                @if (todo.category) {
-                <span class="category">{{ todo.category }}</span>
-                }
-                @if (todo.date) {
-                <span class="date">{{ todo.date }}</span>
-                }
-                @if (todo.time) {
-                <span class="time">{{ formatTime(todo.time) }}</span>
-                }
-            </div>
+            @if (todo.date) {
+              <span class="date">{{ todo.date }}</span>
+            }
+            @if (todo.time) {
+              <span class="time">{{ formatTime(todo.time) }}</span>
+            }
+          </div>
         </div>
         <button (click)="deleteTodo(todo.id)">Delete</button>
-    </li>
+      </li>
     }
-</ul>
-
-@if (todos().length === 0) {
-<p class="empty">No todos yet. Add one above!</p>
+  </ul>
+} @else {
+  <p class="empty">No todos yet. Add one above!</p>
 }

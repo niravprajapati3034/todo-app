@@ -1,65 +1,73 @@
 <div class="form-container">
-    <h2>New Task ToDo</h2>
+  <h2>New Task ToDo</h2>
 
-    <form [formGroup]="todoForm">
-        <div class="field">
-            <label>Title Task</label>
-            <input formControlName="title" placeholder="Add Task Name..." />
-            @if (todoForm.get('title')?.dirty && todoForm.get('title')?.touched) {
-            @if (todoForm.get('title')?.hasError('required')) {
-            <p class="error">Title is required</p>
-            } @else if (todoForm.get('title')?.hasError('minlength')) {
-            <p class="error">Title must be at least 3 characters</p>
-            }@else if (todoForm.get('title')?.hasError('maxlength')) {
-            <p class="error">Title must be at most 50 characters</p>
-            }
-            }
-        </div>
+  <form [formGroup]="todoForm">
+    <div class="field">
+      <label>Title Task</label>
+      <input formControlName="title" placeholder="Add Task Name..." />
+      @if (todoForm.get('title')?.touched) {
+        @if (todoForm.get('title')?.hasError('required')) {
+          <p class="error">Title is required</p>
+        } @else if (todoForm.get('title')?.hasError('minlength')) {
+          <p class="error">Title must be at least 3 characters</p>
+        } @else if (todoForm.get('title')?.hasError('maxlength')) {
+          <p class="error">Title must be at most 50 characters</p>
+        }
+      }
+    </div>
 
-        <div class="field">
-            <label>Description</label>
-            <textarea formControlName="description" placeholder="Add Description..."></textarea>
-            @if (todoForm.get('description')?.dirty && todoForm.get('description')?.touched) {
-            @if (todoForm.get('description')?.hasError('required')) {
-            <p class="error">Description is required</p>
-            } @else if (todoForm.get('description')?.hasError('minlength')) {
-            <p class="error">Description must be at least 5 characters</p>
-            } @else if (todoForm.get('description')?.hasError('maxlength')) {
-            <p class="error">Description must be at most 100 characters</p>
-            }
-            }
-        </div>
+    <div class="field">
+      <label>Description</label>
+      <textarea formControlName="description" placeholder="Add Description..."></textarea>
+      @if (todoForm.get('description')?.touched) {
+        @if (todoForm.get('description')?.hasError('required')) {
+          <p class="error">Description is required</p>
+        } @else if (todoForm.get('description')?.hasError('minlength')) {
+          <p class="error">Description must be at least 5 characters</p>
+        } @else if (todoForm.get('description')?.hasError('maxlength')) {
+          <p class="error">Description must be at most 100 characters</p>
+        }
+      }
+    </div>
 
-        <div class="field">
-            <label>Category</label>
-            <select formControlName="category">
-                <option value="Personal">Personal</option>
-                <option value="Teams">Teams</option>
-            </select>
-        </div>
+    <div class="field">
+      <label>Category</label>
+      <select formControlName="category">
+        <option value="Personal">Personal</option>
+        <option value="Teams">Teams</option>
+      </select>
+    </div>
 
-        <div class="field-row">
-            <div class="field">
-                <label>Date</label>
-                <input type="date" formControlName="date" [min]="todayDate" />
-                @if (todoForm.get('date')?.dirty && todoForm.get('date')?.touched) {
-                @if (todoForm.get('date')?.hasError('required')) {
-                <p class="error">Date is required</p>
-                }
-                }
-            </div>
-            <div class="field">
-                <label>Time</label>
-                <input type="time" formControlName="time" (blur)="todoForm.get('time')?.markAsTouched()" />
-                @if (todoForm.get('time')?.touched && todoForm.get('time')?.hasError('required')) {
-                <p class="error">Time is required</p>
-                }
-            </div>
-        </div>
-
-        <div class="actions">
-            <button class="cancel-btn" type="button" (click)="todoForm.reset({ category: 'Personal' })">Cancel</button>
-            <button class="create-btn" type="button" (click)="submit()" [disabled]="todoForm.invalid">Create</button>
-        </div>
-    </form>
+    <div class="field-row">
+      <div class="field">
+        <label>Date</label>
+        <input type="date" formControlName="date" [min]="todayDate" />
+        @if (todoForm.get('date')?.touched) {
+          @if (todoForm.get('date')?.hasError('required')) {
+            <p class="error">Date is required</p>
+          }
+        }
+      </div>
+      <div class="field">
+        <label>Time</label>
+        <input type="time" formControlName="time" (blur)="todoForm.get('time')?.markAsTouched()" />
+        @if (todoForm.get('time')?.touched && todoForm.get('time')?.hasError('required')) {
+          <p class="error">Time is required</p>
+        }
+      </div>
+    </div>
+    <div class="actions">
+      <button class="cancel-btn" type="button" (click)="resetForm()" [disabled]="isLoading">
+        Cancel
+      </button>
+      <button
+        class="create-btn"
+        type="button"
+        (click)="submit()"
+        [disabled]="todoForm.invalid || isLoading"
+      >
+        {{ isLoading ? 'Creating...' : 'Create' }}
+      </button>
+    </div>
+  </form>
 </div>

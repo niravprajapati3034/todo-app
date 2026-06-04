@@ -38,8 +38,8 @@ Frontend will start on: http://localhost:4200
 - **TodoService** — Shared signal state management
 
 ## Frontend Validation
-- Title: required, min 3, max 100 characters
-- Description: required, min 5, max 200 characters
+- Title: required, min 3, max 50 characters
+- Description: required, min 5, max 100 characters
 - Category: required (Personal / Teams)
 - Date: required, past date not allowed
 - Time: required

@@ -8,9 +8,7 @@ import { Todo } from '../todo';
   styleUrl: './todo-list.css',
 })
 export class TodoList {
-
-
-  constructor(private _todoService: Todo) { }
+  constructor(private _todoService: Todo) {}
 
   // Get todos from service
   get todos() {
@@ -19,7 +17,9 @@ export class TodoList {
 
   // Delete todo by ID
   deleteTodo(id: number) {
-    this._todoService.deleteTodo(id);
+    this._todoService.deleteTodo(id).subscribe(() => {
+      this._todoService.loadTodos();
+    });
   }
 
   // Format time to 12 hour format
